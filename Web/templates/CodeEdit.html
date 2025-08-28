@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monaco Fullscreen Zoom</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script src="https://unpkg.com/monaco-editor@0.43.0/min/vs/loader.js"></script>
+  <label id="type" style="display: none;">{{ type }}</label>
+  <label id="code_snippet" style="display: none;">{{ code_snippet }}</label>
+  <script>
+    require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.43.0/min/vs' }});
+    require(["vs/editor/editor.main"], function () {
+      // editor yaratamiz
+      var language_type = document.getElementById("type").innerText;
+      var code = document.getElementById("code_snippet").innerText;
+      const editor = monaco.editor.create(document.getElementById('container'), {
+        value: code,
+        language: language_type,
+        theme: "vs-dark",
+        automaticLayout: true,
+        autoIndent: "full",
+        fontSize: 20
+      });
+
+      let fontSize = 20;
+
+      // 🔹 Zoom boshqaruv
+      document.addEventListener("keydown", function(e) {
+        if (e.ctrlKey && (e.key === "=" || e.key === "+")) { // Ctrl + +
+          e.preventDefault();
+          fontSize += 1;
+          editor.updateOptions({ fontSize: fontSize });
+        }
+        if (e.ctrlKey && e.key === "-") { // Ctrl + -
+          e.preventDefault();
+          if (fontSize > 8) fontSize -= 1;
+          editor.updateOptions({ fontSize: fontSize });
+        }
+        if (e.ctrlKey && e.key === "0") { // Ctrl + 0 (reset)
+          e.preventDefault();
+          fontSize = 14;
+          editor.updateOptions({ fontSize: fontSize });
+        }
+      });
+    });
+    function setCode(code) {
+      editor.setValue(code);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Communications</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #d9e4ec);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      width: 900px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #f8fafc;
+      border: 1px solid #e1e8ef;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .profile-card:hover {
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transform: translateY(-3px);
+    }
+
+    .profile-card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid #3498db;
+      object-fit: cover;
+    }
+
+    .profile-info h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+
+    .profile-info p {
+      margin: 3px 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .section-title {
+      margin: 25px 0 15px;
+      font-size: 1.3rem;
+      color: #2c3e50;
+      border-left: 4px solid #3498db;
+      padding-left: 10px;
+    }
+
+    .students {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .profile-info {
+        margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="section-title">Teacher</div>
+    <div class="profile-card">
+      <img src="{{ base_url }}/api/profile/get-image/{{ teacher.id }}" alt="avatar">
+      <div class="profile-info">
+        <h3>{{ teacher.name }}</h3>
+        <p>Roles: {{ teacher.roles|join:", " }}</p>
+      </div>
+    </div>
+
+    <div class="section-title">Students</div>
+    <div class="students">
+      {% for student in students %}
+        <div class="profile-card">
+          <img src="{{ base_url }}/api/profile/get-image/{{ student.id }}" alt="avatar">
+          <div class="profile-info">
+            <h3>{{ student.name }}</h3>
+            <p>Roles: {{ student.roles|join:", " }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>
