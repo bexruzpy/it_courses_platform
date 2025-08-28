@@ -23,19 +23,19 @@ class MainWindow(QMainWindow):
 
         # self.menyuStack.setCurrentIndex(3)
         
-        self.editor = CodeEditor(self.mode, server.auth_token)
+        self.editor = CodeEditor(self.mode, server)
         self.verticalLayout_22.addWidget(self.editor)
 
-        self.taskDescription = TaskDescription(self.mode, server.auth_token)
+        self.taskDescription = TaskDescription(self.mode, server)
         self.verticalLayout_23.addWidget(self.taskDescription)
 
-        self.chatView = ChatView(self.mode, None, server.auth_token)
+        self.chatView = ChatView(self.mode, None, server)
         self.verticalLayout_26.addWidget(self.chatView)
 
-        self.lessonComponents = LessonComponents(self.mode, None, server.auth_token)
+        self.lessonComponents = LessonComponents(self.mode, None, server)
         self.verticalLayout_27.addWidget(self.lessonComponents)
 
-        self.courseCommunications = CourseCommunications(self.mode, None, server.auth_token)
+        self.courseCommunications = CourseCommunications(self.mode, None, server)
         self.verticalLayout_7.addWidget(self.courseCommunications)
 
         self.message_dialog = MessageDialog(self)
@@ -74,7 +74,10 @@ class MainWindow(QMainWindow):
             self.dragging = False
             cw = self.content_hint.width()
             ctw = self.code_hint.width()
-            mn = abs(100 - (ctw / cw))
+            try:
+                mn = abs(100 - (ctw / cw))
+            except ZeroDivisionError:
+                return
             ctw_ratio = 100
             cw_ratio = 1
 

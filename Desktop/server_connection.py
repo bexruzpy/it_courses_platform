@@ -30,6 +30,7 @@ class ServerConnection:
             self.save_auth_token(self.auth_token)
         return response.json()
     def save_auth_token(self, token):
+        self.auth_token = token
         with open("auth_token.txt", "w") as f:
             f.write(token)
     def load_auth_token(self):

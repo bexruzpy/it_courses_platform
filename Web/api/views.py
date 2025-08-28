@@ -77,8 +77,8 @@ class SendMessageAPI(APIView):
                 "message": {
                     "command": "new_message",
                     "id": message.id,
-                    "user_id": message.user.id,
-                    "name": message.user.name,
+                    "user_id": user.id,
+                    "name": user.name+"\n",
                     "content": content,
                     "created_at": str(message.created_at)
                 }

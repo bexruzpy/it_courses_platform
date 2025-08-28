@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ course.title }} Chat</title>
+    <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <style>
         * {
           margin: 0;
@@ -163,7 +171,36 @@
           border-radius: 20px;
           border-bottom-right-radius: 0;
         }
+        /* Code view */
+        .code-container {
+          position: relative;
+          background: #0000;
+        }
+        .code-container code {
+          margin: 0;
+          padding: 4px;
+          border-radius: 10px;
+        }
+        .code-container .copy-btn {
+          position: absolute;
+          top: 2px;       /* yuqoridan 2px */
+          right: 2px;     /* o‘ngdan 2px */
+          padding: 2px 8px;
+          font-size: 12px;
+          background: #ffffff99;
+          color: #000000;
+          border: 1px solid #444;
+          border-radius: 8px;
+          cursor: pointer;
+          z-index: 10;
+        }
+
+        .code-container .copy-btn:hover {
+          background: #ffffff;
+}
+
     </style>
+
 </head>
 <body>
   <div id="chat-container">
@@ -207,8 +244,10 @@
                 end_message.classList.remove(`tanitish_${endTanitish}`);
                 end_message.classList.add(`tanitish_${endTanitish-2}`);
                 messageElement.classList.add("tanitish_2");
+                name = "";
                 endTanitish = 2;
               } else {
+                name = "<label class=\"name\">"+message.name+"</label>";
                 messageElement.classList.add("tanitish_3");
                 endTanitish = 3;
               }
@@ -217,7 +256,7 @@
                 <div class="avatar"><img src="{{ base_url }}/api/profile/get-image/${message.user_id}/" alt="avatar" /></div>
                 <pre class="content"></pre>
               `;
-              messageElement.getElementsByClassName("content")[0].innerHTML = message.content;
+              messageElement.getElementsByClassName("content")[0].innerHTML = name + message.content;
               endMessageId = message.id;
               end_message = messageElement;
               endUserId = message.user_id;
@@ -227,7 +266,7 @@
               message = document.getElementById("msg_" + message.id);
             } else if (tur === "update_message") {
               const messageElement = document.getElementById("msg_" + message.id);
-              messageElement.getElementsByClassName("content")[0].innerHTML = message.content+"<label class=\"name\">"+message.name+"</label>";
+              messageElement.getElementsByClassName("content")[0].innerHTML = "<label class=\"name\">"+message.name+"</label>" + message.content;
             }
         };
         function scrollToBottom() {
@@ -237,7 +276,16 @@
           });
         }
         scrollToBottom();
-
+        
     </script>
+    <script>
+    function copyCode(button) {
+      const codeBlock = button.nextElementSibling.querySelector("code").innerText;
+      navigator.clipboard.writeText(codeBlock).then(() => {
+        button.innerText = "Copied!";
+        setTimeout(() => button.innerText = "Copy", 2000);
+      });
+    }
+  </script>
 </body>
 </html>

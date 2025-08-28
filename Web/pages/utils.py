@@ -124,7 +124,7 @@ def describtion_to_html(content):
         if qism['type'] == "text":
             result += f"<p>{qism['text']}</p>"
         elif qism['type'] == "code":
-            result += f"<pre><code class=\"code_view\" ref=\"{qism['language']}\">{qism['code']}</code></pre>"
+            result += f"<div class=\"code-container\"><button class=\"copy-btn\" onclick=\"copyCode(this)\">Copy</button><pre><code class=\"language-{qism['language']}\">{qism['code']}</code></pre></div>"
         elif qism['type'] == "photo":
             result += f"<img src=\"{qism['photo']}\" alt=\"image\">"
         else:
