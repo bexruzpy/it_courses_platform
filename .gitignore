@@ -5,3 +5,4 @@ Web/venv/
 Web/staticfiles/
 Desktop/venv/
 Desktop/auth_token.txt
+db.sqlite3
