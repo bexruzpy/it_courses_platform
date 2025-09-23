@@ -3,7 +3,9 @@
 
 Web/venv/
 Web/staticfiles/
-Web/db.sqlite3
+
+# Database
+*.sqlite3
 
 Desktop/venv/
 Desktop/auth_token.txt
