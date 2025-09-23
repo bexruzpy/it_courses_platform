@@ -15,7 +15,7 @@ class CodeEditor(QWebEngineView):
         self.server = server
         self.setStyleSheet("border-radius: 10px;")
     def load_task(self, task):
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/solve_task/?task_id={task.id}&auth_token={self.server.auth_token}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/solve_task/?task_id={task.id}&auth_token={self.server.auth_token}"))
 
 class TaskDescription(QWebEngineView):
     def __init__(self, mode, server=None):
@@ -23,7 +23,7 @@ class TaskDescription(QWebEngineView):
         self.server = server
         self.setStyleSheet("border-radius: 10px;background-color: transparent;background: transparent;")
     def load_task(self, task):
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/task_description/{task.id}/{self.server.auth_token}/"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/task_description/{task.id}/{self.server.auth_token}/"))
 
 
 
@@ -36,10 +36,10 @@ class ChatView(QWebEngineView):
         self.setStyleSheet("border-radius: 10px;background-color: transparent;background: transparent;")
     def update_styles(self, mode):
         self.setStyleSheet("border-radius: 10px; background-color: rgb(20, 40, 80);")
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/chat/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/chat/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
     def load_chat(self, course):
         self.course = course
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/chat/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/chat/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
 
 class LessonComponents(QWebEngineView):
     def __init__(self, mode, lesson=None, server=None):
@@ -50,10 +50,10 @@ class LessonComponents(QWebEngineView):
         self.setStyleSheet("border-radius: 10px;background-color: transparent;background: transparent;")
     def update_styles(self, mode):
         self.setStyleSheet("border-radius: 10px; background-color: rgb(20, 40, 80);")
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/lesson_components/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/lesson_components/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
     def load_components(self, lesson):
         self.lesson = lesson
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/lesson_components/{self.lesson.id}/{self.server.auth_token}/?mode={self.mode}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/lesson_components/{self.lesson.id}/{self.server.auth_token}/?mode={self.mode}"))
 
 class CourseCommunications(QWebEngineView):
     def __init__(self, mode, course=None, server=None):
@@ -64,10 +64,10 @@ class CourseCommunications(QWebEngineView):
         self.setStyleSheet("border-radius: 10px;background-color: transparent;background: transparent;")
     def update_styles(self, mode):
         self.setStyleSheet("border-radius: 10px; background-color: rgb(20, 40, 80);")
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/course_communications/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/course_communications/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
     def load_communications(self, course):
         self.course = course
-        self.setUrl(QUrl(f"http://127.0.0.1:8000/course_communications/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
+        self.setUrl(QUrl(f"http://45.138.158.199:8002/course_communications/{self.course.id}/{self.server.auth_token}/?mode={self.mode}"))
 
 class MessageDialog(QDialog):
     def __init__(self, parent=None):

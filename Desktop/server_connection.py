@@ -2,10 +2,12 @@ import requests
 class ServerConnection:
     def __init__(self):
         self.load_auth_token()
-        self.base_url = "http://127.0.0.1:8000"
+        self.base_url = "http://45.138.158.199:8002"
     def post_request(self, endpoint, data):
         url = f"{self.base_url}{endpoint}"
+        print(url, data)
         response = requests.post(url, json=data)
+        
         return response.json()
     def get_request(self, endpoint):
         url = f"{self.base_url}{endpoint}"

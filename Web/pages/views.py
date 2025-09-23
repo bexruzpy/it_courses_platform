@@ -10,6 +10,8 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def login(request):
+    return render(request, 'Login.html')
 
 def chat(request, course_id, auth_token):
     mode = request.GET.get('mode', 'light')
