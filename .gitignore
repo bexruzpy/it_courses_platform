@@ -3,6 +3,8 @@
 
 Web/venv/
 Web/staticfiles/
+Web/db.sqlite3
+
 Desktop/venv/
 Desktop/auth_token.txt
-db.sqlite3
+/Frontend/node_modules/
