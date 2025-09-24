@@ -5,13 +5,13 @@ class ServerConnection:
         self.base_url = "http://45.138.158.199:8002"
     def post_request(self, endpoint, data):
         url = f"{self.base_url}{endpoint}"
-        print(url, data)
         response = requests.post(url, json=data)
-        
+        print(url)
         return response.json()
     def get_request(self, endpoint):
         url = f"{self.base_url}{endpoint}"
         response = requests.get(url)
+        print(url)
         return response.json()
     def upload_profile_image(self, auth_token, file_path):
         url = f"{self.base_url}/api/profile/upload-image/{auth_token}/"
