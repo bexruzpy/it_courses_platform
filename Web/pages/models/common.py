@@ -80,26 +80,29 @@ class ChatMessage(BaseModel):
     def __str__(self):
         return str(self.course) + " message"
 
-class Languages(models.TextChoices):
-    PYTHON = 'python', "Python"
-    JAVASCRIPT = 'javascript', "JavaScript"
-    CSHARP = 'csharp', "CSharp"
-    CPP = 'cpp', "C++"
+class Language(models.Model):
+    name = models.CharField(max_length=100)
+    version = models.CharField(max_length=50)
+    language_id = models.IntegerField(unique=True)  # Judge0 API uchun til IDsi
+
+    def __str__(self):
+        return f"{self.name} {self.version}"
 
 class Task(BaseModel):
     title = models.CharField(max_length=255)
     description = models.JSONField()
     lesson = models.ForeignKey(Lesson, related_name='tasks', on_delete=models.SET_NULL, null=True)
-    language = models.CharField(max_length=50, blank=True, null=True, choices=Languages.choices)
-    inputs = models.JSONField()
-    outputs = models.JSONField()
+    language = models.ForeignKey(Language, blank=True, null=True, on_delete=models.SET_NULL)
+    time_limit = models.IntegerField(default=1)  # in seconds
+    memory_limit = models.IntegerField(default=16)  # in MB
+
 
     def __str__(self):
         return self.title
 class TestCase(models.Model):
     task = models.ForeignKey(Task, related_name='test_cases', on_delete=models.CASCADE)
-    input_data = models.JSONField()
-    expected_output = models.JSONField()
+    input_data = models.TextField()
+    expected_output = models.TextField()
 
     def __str__(self):
         return f"TestCase for {self.task.title}"
@@ -108,10 +111,9 @@ class TestCase(models.Model):
 class CodeSnippet(models.Model):
     task = models.ForeignKey(Task, related_name='code_snippets', on_delete=models.CASCADE)
     code = models.TextField()
-    language = models.CharField(max_length=50)
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=50, choices=CodeSnippetStatuses.choices)
     user = models.ForeignKey(User, related_name='code_snippets', on_delete=models.SET_NULL, null=True)
-
 
     def __str__(self):
         return f"CodeSnippet for {self.task.title}"
@@ -121,7 +123,6 @@ class CodeSnippet(models.Model):
 class TaskSolution(BaseModel):
     task = models.OneToOneField(Task, on_delete=models.CASCADE)
     code_snippet = models.OneToOneField(CodeSnippet, on_delete=models.CASCADE)
-    language = models.CharField(max_length=50)
     user = models.ForeignKey(User, related_name='solutions', on_delete=models.CASCADE)
     times = models.IntegerField(default=1)
     def __str__(self):
