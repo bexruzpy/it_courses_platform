@@ -12,3 +12,7 @@ Web/staticfiles/
 Desktop/venv/
 Desktop/auth_token.txt
 /Frontend/node_modules/
+
+# Bot
+Bot/venv/
+Bot/.env

@@ -8,8 +8,11 @@ from utils import (
 )
 from datetime import datetime
 
-# API tokeningizni bu yerga kiriting
-BOT_TOKEN = "8168160332:AAGR60AbACkp5Lqz1zRcY1n4blpcXkMAUBc"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+# Atrof-muhit o'zgaruvchilarini yuklash
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Ma'lumotlar bazasi fayli
 DB_NAME = "students.db"
