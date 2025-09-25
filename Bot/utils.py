@@ -99,12 +99,12 @@ def get_datas_from_hemis(login, parol):
             "detail": "Xatolik yuz berdi. Iltimos, HEMIS login parolingizni qayta kiriting yoki administrator bilan bog'laning."
         }
 def get_info_message(data):
-    message = f"""*Sizning HEMIS tizimidagi ma'lumotlaringiz:*\n
-👤 *F.I.O:* {data.get('first_name', 'Noma\'lum')} {data.get('second_name', '')}
-📅 *Kurs:* {data.get('Kurs', 'Noma\'lum')}
-📚 *Fakultet:* {data.get('Fakultet', 'Noma\'lum')}
-📁 *Guruh:* {data.get('Guruh', 'Noma\'lum')}
-
-Ma'lunotlaringiz to'g'riligini tasdiqlaysizmi?
-"""
+    message = (
+        f"*Sizning HEMIS tizimidagi ma'lumotlaringiz:*\n\n"
+        f"👤 *F.I.O:* {data.get('first_name', '-')} {data.get('second_name', '')}\n"
+        f"📅 *Kurs:* {data.get('Kurs', '-')}\n"
+        f"📚 *Fakultet:* {data.get('Fakultet', '-')}\n"
+        f"📁 *Guruh:* {data.get('Guruh', '-')}\n\n"
+        f"Ma'lunotlaringiz to'g'riligini tasdiqlaysizmi?"
+    )
     return message
