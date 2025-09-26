@@ -173,7 +173,7 @@ def get_hemis_password(message):
     hemis_login = user_data[user_id]['hemis_login']
     hemis_password = user_data[user_id]['hemis_password']
     # Malumotlarni HEMIS tizimidan olish
-    data = get_datas_from_hemis(hemis_login, hemis_password)
+    data = get_datas_from_hemis(hemis_login, hemis_password, bot)
     if not data["status"]:
         bot.send_message(message.chat.id, data["detail"])
         bot.register_next_step_handler(message, get_hemis_login)

