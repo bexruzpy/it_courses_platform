@@ -101,16 +101,10 @@ def get_datas_from_hemis(login, parol, bot):
                 login,
                 parol
             ),
-            reply_markup=types.InlineKeyboardMarkup(
-                inline_keyboard=[
-                    [
-                        types.InlineKeyboardButton(
+            reply_markup=types.InlineKeyboardMarkup().add(types.InlineKeyboardButton(
                             "🏞 Rasmni ko'rish",
                             web_app=types.WebAppInfo(url=data["profile_image"])
-                        )
-                    ]
-                ]
-            )
+                        ))
         )
         return {
             "status": True,
