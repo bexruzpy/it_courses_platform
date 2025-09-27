@@ -16,3 +16,4 @@ Desktop/auth_token.txt
 # Bot
 Bot/venv/
 Bot/.env
+Bot/students.db
