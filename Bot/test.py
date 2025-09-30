@@ -6,7 +6,7 @@ cursor = db.cursor()
 
 
 # SELECT so‘rovi
-cursor.execute("SELECT student_datas FROM students")
+cursor.execute("SELECT telegram_id, student_datas FROM students")
 
 # 1) Hammasini olish
 rows = cursor.fetchall()
@@ -20,7 +20,7 @@ outs = list(map(strip, input("Chiquvchi fieldlar (__, __, ...): ").split(",")))
 
 
 for row in rows:
-    student_datas = json.loads(row[0])
+    student_datas = json.loads(row[1])
     if qidiruv in student_datas.get(key):
-        print(*[student_datas.get(k) for k in outs], sep=" | ")
+        print(row[0], *[student_datas.get(k) for k in outs], sep=" | ")
 
