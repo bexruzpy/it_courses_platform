@@ -60,13 +60,13 @@ def restructure_matrix(img, N, M):
         n+=1
         cols = []
         for Y in np.hsplit(X, N):
-            # print(cv2.countNonZero(Y), end="\t")
+            print(cv2.countNonZero(Y), end="\t")
             if cv2.countNonZero(Y) < 820:
                 cols.append(True)
             else:
                 cols.append(False)
         matrix.append(cols)
-        # print("")
+        print("")
     return matrix
 def convert_to_abcd(answers):
     """
@@ -87,11 +87,10 @@ def convert_to_abcd(answers):
 def scan(image: Mat):
     cropped = crop_image.biggest_rect(image, 1000, 1000)
     image = cropped[20:980, 20:980]
-    # image = +image[:,150:490]
     image = cv2.vconcat(
         [
             cv2.resize(image[:,150:490], (100, 250)),
-            cv2.resize(image[:,150:490], (100, 250))
+            cv2.resize(image[:,660:964], (100, 250))
         ]
     )
     bigray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -107,6 +106,7 @@ if __name__ == "__main__":
     result, img = scan(img)
     count = sum(1 for a, b in zip(result, questions_answers) if a == b)
     print(count, 20)
-    # cv2.imshow("Scanned Image", img)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    print("Sizning javoblaringiz:", result)
+    cv2.imshow("Scanned Image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
