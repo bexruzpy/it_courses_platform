@@ -134,6 +134,32 @@ def handle_callback(call):
         chat_id=call.message.chat.id,
         message_id=call.message.message_id
     )
+
+# @username text kabi qidiruv qismi
+@bot.inline_handler(func=lambda query: query.chat_id == ADMIN_ID)
+def inline_query(query):
+    # Database dan o'qish
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM students")
+    rows = cursor.fetchall()
+    conn.close()
+    results = []
+    for row in rows:
+        datas = json.loads(row[5])
+        if query.query in datas.get("first_name")+" "+datas.get("last_name"):
+            results.append(
+                types.InlineQueryResultArticle(
+                    id=row[0],
+                    title=row[0],
+                    description=datas.get("first_name")+" "+datas.get("last_name"),
+                    input_message_content=types.InputTextMessageContent(
+                        message_text=row[2],
+                        parse_mode="Markdown"
+                    )
+                )
+            )
+    bot.answer_inline_query(query.id, results)
 # Start buyrug'i uchun handler
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
