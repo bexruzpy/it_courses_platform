@@ -129,6 +129,11 @@ def handle_callback(call):
             types.InlineKeyboardButton("Yangiliklar kanali 📢", url="https://t.me/uzmugroup"),
         )
     )
+    bot.edit_message_text(
+        text="Natija muvaffaqiyatli yuklandi!",
+        chat_id=call.message.chat.id,
+        message_id=call.message.message_id
+    )
 # Start buyrug'i uchun handler
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
