@@ -136,7 +136,7 @@ def handle_callback(call):
     )
 
 # @username text kabi qidiruv qismi
-@bot.inline_handler(func=lambda query: query.chat_id == ADMIN_ID)
+@bot.inline_handler(func=lambda query: query.from_user.id == ADMIN_ID)
 def inline_query(query):
     # Database dan o'qish
     conn = sqlite3.connect(DB_NAME)
@@ -150,8 +150,8 @@ def inline_query(query):
         if query.query.lower() in datas.get("first_name").lower()+" "+datas.get("last_name").lower():
             results.append(
                 types.InlineQueryResultArticle(
-                    id=row[0],
-                    title=row[0],
+                    id=str(row[0]),
+                    title=str(row[0]),
                     description=datas.get("first_name")+" "+datas.get("last_name"),
                     input_message_content=types.InputTextMessageContent(
                         message_text=row[2],
