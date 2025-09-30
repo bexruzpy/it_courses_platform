@@ -130,7 +130,7 @@ def handle_callback(call):
         )
     )
     bot.edit_message_caption(
-        caption="Natija muvaffaqiyatli yuklandi!",
+        caption=call.message.caption+"\n\n✅ Natija muvaffaqiyatli yuklandi!",
         chat_id=call.message.chat.id,
         message_id=call.message.message_id
     )
