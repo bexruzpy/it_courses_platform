@@ -147,7 +147,7 @@ def inline_query(query):
     results = []
     for row in rows:
         datas = json.loads(row[5])
-        if query.query in datas.get("first_name")+" "+datas.get("last_name"):
+        if query.query.lower() in datas.get("first_name").lower()+" "+datas.get("last_name").lower():
             results.append(
                 types.InlineQueryResultArticle(
                     id=row[0],
