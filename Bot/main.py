@@ -120,7 +120,7 @@ def handle_callback(call):
     datas = json.loads(row[5])
     id_raqam = int(call.data.split("_")[1])
     bot.send_photo(
-        call.message.chat.id,
+        id_raqam,
         call.message.photo[-1].file_id,
         caption=call.message.caption,
         parse_mode="Markdown",
