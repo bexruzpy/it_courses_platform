@@ -87,10 +87,12 @@ def get_photo(message):
             "Foydalanuvchi topilmadi"
         )
         return
+    variatnlar = ''.join(result)
+    t_javoblar = ''.join(titul.questions_answers)
     bot.send_photo(
         message.chat.id,
         io_buf,
-        caption=f"✅ To'g'ri javoblar soni: **{count} ta**\n❌ Noto'g'ri javoblar soni: **{20 - count} ta**\n\nSizning javoblaringiz:\n{' '.join(result)}\nTo'g'ri javoblar:\n{' '.join(titul.questions_answers)}\n\n{'🎉 Tabriklaymiz siz muvvaffaqiyatli 2 - bosqichga o\'tdingiz' if count >= 10 else 'Afsuski siz 2 - bosqichga o\'ta olmadingiz'}\n\nYangiliklarni kuzatib boring.",
+        caption=f"✅ To'g'ri javoblar soni: **{count} ta**\n❌ Noto'g'ri javoblar soni: **{20 - count} ta**\n\nSizning javoblaringiz:\n{variatnlar}\nTo'g'ri javoblar:\n{t_javoblar}\n\n{'🎉 Tabriklaymiz siz muvvaffaqiyatli 2 - bosqichga o\'tdingiz' if count >= 10 else 'Afsuski siz 2 - bosqichga o\'ta olmadingiz'}\n\nYangiliklarni kuzatib boring.",
         parse_mode="Markdown",
         reply_markup=types.InlineKeyboardMarkup().add(
             types.InlineKeyboardButton("Natijani yuklash ✅", callback_data=f"natija_{id_raqam}")
