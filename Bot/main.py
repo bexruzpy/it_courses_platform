@@ -89,7 +89,7 @@ def get_photo(message):
         return
     variatnlar = ''.join(result)
     t_javoblar = ''.join(titul.questions_answers)
-    text_message = '🎉 Tabriklaymiz siz muvvaffaqiyatli 2 - bosqichga o\'tdingiz' if count >= 10 else 'Afsuski siz 2 - bosqichga o\'ta olmadingiz'
+    text_message = f"🎉 Tabriklaymiz siz muvvaffaqiyatli 2 - bosqichga o'tdingiz" if count >= 10 else f"Afsuski siz 2 - bosqichga o'ta olmadingiz"
     bot.send_photo(
         message.chat.id,
         io_buf,
