@@ -7,13 +7,20 @@ from utils import (
     get_info_message
 )
 from datetime import datetime
-
-import os
+import titul
+import os, cv2
+from io import BytesIO
+from PIL import Image
 from dotenv import load_dotenv
+import numpy as np
 load_dotenv()
+
+
 # Atrof-muhit o'zgaruvchilarini yuklash
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
+# Admin Telegram ID
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
 # Ma'lumotlar bazasi fayli
 DB_NAME = "students.db"
 
@@ -41,6 +48,84 @@ def init_db():
 # Foydalanuvchi ma'lumotlarini saqlash uchun lug'at
 user_data = {}
 
+
+@bot.message_handler(content_types=["photo"], func=lambda message: message.chat.id == ADMIN_ID)
+def get_photo(message):
+    # Download file
+    file_info = bot.get_file(message.photo[-1].file_id)
+    downloaded_file = bot.download_file(file_info.file_path)
+    # Load PIL
+    img = Image.open(BytesIO(downloaded_file))
+
+    # RGB to BGR
+    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    result, img = titul.scan(img)
+
+    _, buffer = cv2.imencode(".jpg", img)
+    io_buf = BytesIO(buffer)
+
+    # img in cv2.Mat
+    count = sum(1 for a, b in zip(result, titul.questions_answers) if a == b)
+    try:
+        id_raqam = int(message.caption)
+        # Databasedan qidirish
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM students WHERE telegram_id = ?", (id_raqam,))
+        row = cursor.fetchone()
+        conn.close()
+        if not row:
+            bot.send_message(
+                message.chat.id,
+                "Foydalanuvchi topilmadi"
+            )
+            return
+        
+    except:
+        bot.send_message(
+            message.chat.id,
+            "Foydalanuvchi topilmadi"
+        )
+        return
+    bot.send_photo(
+        message.chat.id,
+        io_buf,
+        caption=f"✅ To'g'ri javoblar soni: **{count} ta**\n❌ Noto'g'ri javoblar soni: **{20 - count} ta**\n\nSizning javoblaringiz:\n{'\t'.join(result)}\nTo'g'ri javoblar:\n{'\t'.join(titul.questions_answers)}\n\n{'🎉 Tabriklaymiz siz muvvaffaqiyatli 2 - bosqichga o\'tdingiz' if count >= 10 else 'Afsuski siz 2 - bosqichga o\'ta olmadingiz'}\n\nYangiliklarni kuzatib boring.",
+        parse_mode="Markdown",
+        reply_markup=types.InlineKeyboardMarkup().add(
+            types.InlineKeyboardButton("Natijani yuklash ✅", callback_data=f"natija_{id_raqam}")
+        )
+    )
+# Callback handler
+@bot.callback_query_handler(func=lambda call: call.data.startswith("natija_"))
+def handle_callback(call):
+    # ID raqamini olish
+    id_raqam = call.data.split("_")[1]
+    # Databasedan qidirish
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM students WHERE telegram_id = ?", (id_raqam,))
+    row = cursor.fetchone()
+    conn.close()
+    if not row:
+        bot.send_message(
+            call.message.chat.id,
+            "Foydalanuvchi topilmadi"
+        )
+        return
+    # Natijani yuklash
+    datas = json.loads(row[5])
+    id_raqam = int(call.data.split("_")[1])
+    bot.send_photo(
+        call.message.chat.id,
+        call.message.photo[-1].file_id,
+        caption=call.message.caption,
+        parse_mode="Markdown",
+        reply_markup=types.InlineKeyboardMarkup().add(
+            # Yangiliklar kanali
+            types.InlineKeyboardButton("Yangiliklar kanali 📢", url="https://t.me/uzmugroup"),
+        )
+    )
 # Start buyrug'i uchun handler
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -229,13 +314,15 @@ def save_data(message):
         # Ma'lumotni lug'atdan o'chirish
         del user_data[user_id]
 
+
 import time
 # Botni doimiy ishlash holatiga o'tkazish
 print("Bot ishga tushdi...")
-while __name__ == '__main__':
+while  __name__ == '__main__':
     try:
         bot.polling(non_stop=True)
     except Exception as e:
         print(f"Xatolik yuz berdi: {e}")
         time.sleep(5)
+        print("Bot qayta ishga tushdi...")
         continue
