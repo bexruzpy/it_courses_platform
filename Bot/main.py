@@ -192,7 +192,7 @@ def send_welcome(message):
     # Vaqt   28 - sentabr 🗓 23:59 🕛 gacha
     # Agar bu vaqtdan o'tib ketgan bo'lsa Ro'yxatga olish yakunlangan deb chiqarsin
     now = datetime.now()
-    if now > datetime(2025, 9, 28, 23, 59):
+    if now > datetime(2025, 10, 5, 23, 59):
         bot.send_message(message.chat.id, "Ro'yxatdan o'tish yakunlangan")
         return
 
