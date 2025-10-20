@@ -33,4 +33,6 @@ urlpatterns += [
     path("dashboard/students", view=dashboard.dashboard_view, name="students"),
     path("dashboard/settings", view=dashboard.dashboard_view, name="settings"),
     path("dashboard/logout", view=dashboard.dashboard_view, name="logout"),
+    path("dashboard/assignments", view=dashboard.dashboard_view, name="assignments"),
+    path("dashboard/analytics", view=dashboard.dashboard_view, name="analytics"),
 ]

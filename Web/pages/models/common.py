@@ -9,7 +9,7 @@ class User(AbstractUser):
 
     roles = MultiSelectField(choices=Roles.choices, blank=True)
 
-    profile_picture = models.CharField(max_length=255, blank=True, default="None")
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
 
     rank = models.IntegerField(default=150)
 
