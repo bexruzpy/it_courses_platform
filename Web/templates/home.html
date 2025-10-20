@@ -1,11 +1,146 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Academy — O‘rganing, o‘qing, rivojlaning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Xush kelibsiz</h1>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Navbar -->
+<header class="bg-white shadow sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold rounded-lg flex items-center justify-center">
+                IT
+            </div>
+            <span class="font-semibold text-lg">IT Academy</span>
+        </div>
+        <nav class="hidden md:flex space-x-6 text-sm text-gray-600">
+            <a href="#" class="hover:text-indigo-600">Kurslar</a>
+            <a href="#" class="hover:text-indigo-600">Instruktorlar</a>
+            <a href="#" class="hover:text-indigo-600">Narxlar</a>
+            <a href="#" class="hover:text-indigo-600">Kompaniyalar uchun</a>
+        </nav>
+        <div class="flex space-x-3">
+            <a href="#" class="px-4 py-2 border rounded-md text-sm">Kirish</a>
+            <a href="#" class="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm">Boshlash</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+            O‘rganing. Rivojlaning. IT sohasida orzularingiz sari!
+        </h1>
+        <p class="mt-4 text-gray-600">
+            Tajribali instruktorlardan kurslar, real loyihalar va mentorlik dasturlari orqali
+            o‘z yo‘lingizni toping. 1000+ talabalar biz bilan o‘qishmoqda.
+        </p>
+        <form class="mt-6 flex">
+            <input type="text" placeholder="Masalan: Python, React..." class="flex-1 px-4 py-3 border rounded-l-md outline-none">
+            <button class="px-5 py-3 bg-indigo-600 text-white rounded-r-md">Qidirish</button>
+        </form>
+        <div class="mt-4 text-sm text-gray-500">🔥 Mashhur yo‘nalishlar: <span class="text-indigo-600">Python, Web, AI</span></div>
+    </div>
+
+    <!-- Rasmlar joyi -->
+    <div class="rounded-xl overflow-hidden shadow-lg">
+        <img src="{% static 'images/hero-it.jpg' %}" alt="IT learning" class="w-full h-full object-cover">
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Yo‘nalishlar</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        {% for cat in categories %}
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-md text-center">
+            <div class="w-14 h-14 mx-auto mb-3 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-2xl">💻</div>
+            <h3 class="font-medium">{{ cat }}</h3>
+            <p class="text-xs text-gray-500 mt-1">Boshlang yoki davom eting</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Featured Courses -->
+<section class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-baseline mb-6">
+            <h2 class="text-2xl font-semibold">Tanlangan kurslar</h2>
+            <a href="#" class="text-indigo-600 text-sm">Barchasini ko‘rish →</a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for course in courses %}
+            <div class="rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+                <div class="h-40 bg-gradient-to-r from-indigo-400 to-pink-400 flex items-end text-white font-semibold p-4">
+                    {{ course.title }}
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm">Instruktor: <strong>{{ course.instructor }}</strong></p>
+                    <div class="mt-3 flex justify-between text-sm text-gray-500">
+                        <span>{{ course.duration }}</span>
+                        <span>{{ course.students }}+ talabalar</span>
+                    </div>
+                    <div class="mt-4 flex gap-3">
+                        <a href="#" class="px-4 py-2 border rounded-md text-sm">Ko‘rish</a>
+                        <a href="#" class="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm">Boshlash</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Instructors -->
+<section class="max-w-7xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Instruktorlarimiz</h2>
+    <div class="grid sm:grid-cols-3 gap-8">
+        {% for teacher in instructors %}
+        <div class="bg-white rounded-lg shadow text-center p-6">
+            <div class="w-24 h-24 mx-auto rounded-full bg-gray-200 flex items-center justify-center text-3xl font-semibold text-indigo-600">
+                {{ teacher.initials }}
+            </div>
+            <h3 class="mt-3 font-medium">{{ teacher.name }}</h3>
+            <p class="text-sm text-gray-500">{{ teacher.title }}</p>
+            <a href="#" class="inline-block mt-3 px-4 py-2 border rounded-md text-sm">Profilni ko‘rish</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-gradient-to-r from-indigo-600 to-pink-500 text-white py-12">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+        <div>
+            <h2 class="text-2xl font-semibold">Siz ham instruktor bo‘lishni xohlaysizmi?</h2>
+            <p class="text-white/90">Kurs yarating, talabalar toping va daromad oling.</p>
+        </div>
+        <a href="#" class="px-5 py-3 bg-white text-indigo-600 rounded-md font-medium">Boshlash</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white border-t py-6 mt-10 text-sm text-gray-500">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+        <div>
+            <span class="font-semibold text-gray-700">IT Academy</span> — © {{ now|date:'Y' }}
+        </div>
+        <div class="flex space-x-4">
+            <a href="#">Maxfiylik</a>
+            <a href="#">Aloqa</a>
+            <a href="#">Qo‘llab-quvvatlash</a>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

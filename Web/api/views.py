@@ -40,7 +40,7 @@ class ChatMessageRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView
     serializer_class = ChatMessageSerializer
 
 
-
+# Chat Message: send, delete, update
 class SendMessageAPI(APIView):
     def post(self, request, course_id, auth_token):
         content = request.data.get("content")
@@ -150,6 +150,7 @@ class EditMessageAPI(APIView):
 
         return Response({"status": "ok", "message": "Message edited"})
 
+# Profile: upload image
 class UploadProfileImageAPI(APIView):
     def post(self, request, auth_token):
         try:
@@ -170,6 +171,7 @@ class UploadProfileImageAPI(APIView):
         except Exception as e:
             return Response({"error": str(e)}, status=500)
 
+# Profile: get image
 class GetProfileImageAPI(APIView):
     def get(self, request, user_id):
         try:
@@ -185,6 +187,7 @@ class GetProfileImageAPI(APIView):
         # Rasmni qaytarish
         return FileResponse(response, content_type="image/jpeg")
 
+# Get user data
 class GetUserAPI(APIView):
     def get(self, request, auth_token):
         try:
@@ -196,6 +199,8 @@ class GetUserAPI(APIView):
             "name": user.name,
             "profile_picture": f"{settings.BASE_URL}/profile/get-image/{user.id}"
         })
+
+# Get AllDatasAPI
 class GetAllDatasAPI(APIView):
     def get(self, request, auth_token):
         try:
@@ -274,6 +279,7 @@ class GetAllDatasAPI(APIView):
                     }
                 } for course in user.completed_courses.all()]
         })
+
 
 class GetModulDataAPI(APIView):
     def get(self, request, auth_token, module_id):

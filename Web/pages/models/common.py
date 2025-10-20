@@ -2,8 +2,9 @@ from .base import BaseModel
 from django.db import models
 from multiselectfield import MultiSelectField
 from .enums import Roles, CompletedCourseStatuses, CodeSnippetStatuses
+from django.contrib.auth.models import AbstractUser
 
-class User(BaseModel):
+class User(AbstractUser, BaseModel):
     name = models.CharField(max_length=255)
     login = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)

@@ -1,11 +1,26 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
-
-from .models import *
-from .utils import *
+from datetime import datetime
+from ..models import *
+from ..utils import *
 
 def home(request):
-    return render(request, 'home.html')
+    context = {
+        "categories": ["Web Development", "Data Science", "Mobile", "AI", "DevOps", "Security"],
+        "courses": [
+            {"title": "Modern React", "instructor": "Jamshid Islomov", "duration": "8 soat", "students": 1200},
+            {"title": "Python Data Analysis", "instructor": "Malika Karimova", "duration": "12 soat", "students": 2000},
+            {"title": "Docker & Kubernetes", "instructor": "Sardor Akhmedov", "duration": "6 soat", "students": 900},
+        ],
+        "instructors": [
+            {"name": "Jamshid Islomov", "title": "Senior Frontend Engineer", "initials": "JI"},
+            {"name": "Malika Karimova", "title": "Data Scientist", "initials": "MK"},
+            {"name": "Sardor Akhmedov", "title": "DevOps Engineer", "initials": "SA"},
+        ],
+        "now": datetime.now(),
+    }
+    return render(request, "home.html", context)
+
 
 def about(request):
     return render(request, 'about.html')

@@ -1,4 +1,4 @@
-from .views import (
+from .views.others import (
     home,
     about,
     chat,
@@ -23,4 +23,14 @@ urlpatterns = [
     path('task_description/<int:task_id>/<str:auth_token>/', task_description, name='task_description'),
     path('lesson_components/<int:lesson_id>/<str:auth_token>/', lesson_components, name='lesson_component'),
     path('course_communications/<int:course_id>/<str:auth_token>/', course_communications, name='course_communications')
+]
+from .views import dashboard
+# Dashboard Urls
+urlpatterns += [
+    path("dashboard/", view=dashboard.dashboard_view, name="dashboard"),
+    path("dashboard/courses", view=dashboard.dashboard_view, name="courses"),
+    path("dashboard/teachers", view=dashboard.dashboard_view, name="teachers"),
+    path("dashboard/students", view=dashboard.dashboard_view, name="students"),
+    path("dashboard/settings", view=dashboard.dashboard_view, name="settings"),
+    path("dashboard/logout", view=dashboard.dashboard_view, name="logout"),
 ]
