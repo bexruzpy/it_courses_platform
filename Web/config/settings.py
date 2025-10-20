@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'api',
     'pages',
 ]
+AUTH_USER_MODEL = 'pages.User'
 
 
 SIMPLE_JWT = {
@@ -198,3 +199,5 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': '/api/',  # 🔹 Auto-tag uchun prefix
 }
+
+

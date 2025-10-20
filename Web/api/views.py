@@ -329,7 +329,7 @@ class GetModulDataAPI(APIView):
                 module_data["victorinas"].append(lesson_data)
             else:
                 module_data["lessons"].append(lesson_data)
-        course_data["modules"].append(module_data)
+        return Response(module_data, status=200)
 
 class GetLessonDataAPI(APIView):
     def get(self, request, auth_token, lesson_id):

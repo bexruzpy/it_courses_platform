@@ -4,10 +4,8 @@ from multiselectfield import MultiSelectField
 from .enums import Roles, CompletedCourseStatuses, CodeSnippetStatuses
 from django.contrib.auth.models import AbstractUser
 
-class User(AbstractUser, BaseModel):
+class User(AbstractUser):
     name = models.CharField(max_length=255)
-    login = models.CharField(max_length=255, unique=True)
-    password = models.CharField(max_length=255)
 
     roles = MultiSelectField(choices=Roles.choices, blank=True)
 
