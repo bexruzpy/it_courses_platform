@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from ..models import *
 from ..utils import *
 
@@ -197,3 +199,13 @@ def course_communications(request, course_id, auth_token):
         },
         'students': students
     })
+
+def custom_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, "Siz tizimdan muvaffaqiyatli chiqdingiz!")
+        return redirect('custom_login')
+    
+    # Agar GET so'rov bo'lsa, logout tasdiqlash sahifasini ko'rsat
+    return render(request, 'logout.html')
+

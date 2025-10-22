@@ -1,32 +1,326 @@
 {% extends './base.html' %}
 
-{% block title %}Home - Dashboard{% endblock %}
+{% block title %}Bosh Sahifa - Boshqaruv Paneli{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block page_title %}Boshqaruv Paneli{% endblock %}
+
+{% block page_subtitle %}IT Academy tizimining asosiy ko'rsatkichlari{% endblock %}
+
+{% block page_actions %}
+<button class="btn btn-primary">
+    <i class="fas fa-download me-2"></i>Hisobot yuklash
+</button>
+{% endblock %}
 
 {% block content %}
+<!-- Stats Cards -->
+<div class="row mb-5">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card primary h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">Jami Talabalar</h6>
+                    <h3 class="fw-bold mb-0">1,248</h3>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>12.5% o'sish
+                    </small>
+                </div>
+                <div class="bg-primary bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-user-graduate text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card success h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">Faol Kurslar</h6>
+                    <h3 class="fw-bold mb-0">28</h3>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>3 yangi kurs
+                    </small>
+                </div>
+                <div class="bg-success bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-book-open text-success"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card warning h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">O'qituvchilar</h6>
+                    <h3 class="fw-bold mb-0">15</h3>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>2 yangi o'qituvchi
+                    </small>
+                </div>
+                <div class="bg-warning bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-chalkboard-teacher text-warning"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card danger h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">Topshiriqlar</h6>
+                    <h3 class="fw-bold mb-0">156</h3>
+                    <small class="text-danger">
+                        <i class="fas fa-clock me-1"></i>8 muddati yaqin
+                    </small>
+                </div>
+                <div class="bg-danger bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-tasks text-danger"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
-  <div class="col-md-4">
-    <div class="card shadow-sm border-0 mb-4">
-      <div class="card-body text-center">
-        <h5 class="card-title">Students</h5>
-        <p class="card-text display-6">120+</p>
-      </div>
+    <!-- Recent Activity -->
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-history me-2 text-primary"></i>
+                    So'nggi Faollik
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex align-items-center px-4 py-3">
+                        <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                            <i class="fas fa-user-plus text-success"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Yangi talaba qo'shildi</h6>
+                            <p class="mb-0 text-muted small">Azizbek Xolmirzayev "Python Asoslari" kursiga qo'shildi</p>
+                        </div>
+                        <small class="text-muted">10 daqiqa oldin</small>
+                    </div>
+                    
+                    <div class="list-group-item d-flex align-items-center px-4 py-3">
+                        <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                            <i class="fas fa-file-upload text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Yangi topshiriq yuklandi</h6>
+                            <p class="mb-0 text-muted small">"Web Dasturlash" kursi uchun yangi loyiha topshirig'i</p>
+                        </div>
+                        <small class="text-muted">1 soat oldin</small>
+                    </div>
+                    
+                    <div class="list-group-item d-flex align-items-center px-4 py-3">
+                        <div class="bg-warning bg-opacity-10 p-2 rounded me-3">
+                            <i class="fas fa-check-circle text-warning"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Topshiriq yakunlandi</h6>
+                            <p class="mb-0 text-muted small">Sevara Alimova "React Loyihasi"ni muvaffaqiyatli yakunladi</p>
+                        </div>
+                        <small class="text-muted">3 soat oldin</small>
+                    </div>
+                    
+                    <div class="list-group-item d-flex align-items-center px-4 py-3">
+                        <div class="bg-info bg-opacity-10 p-2 rounded me-3">
+                            <i class="fas fa-comment text-info"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Yangi sharh qoldirildi</h6>
+                            <p class="mb-0 text-muted small">Javohir Tursunov "Django" kursiga sharh qoldirdi</p>
+                        </div>
+                        <small class="text-muted">5 soat oldin</small>
+                    </div>
+                    
+                    <div class="list-group-item d-flex align-items-center px-4 py-3">
+                        <div class="bg-danger bg-opacity-10 p-2 rounded me-3">
+                            <i class="fas fa-exclamation-triangle text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Muddati yaqinlashmoqda</h6>
+                            <p class="mb-0 text-muted small">"Data Science" kursidagi 5 ta topshiriqning muddati yaqinlashmoqda</p>
+                        </div>
+                        <small class="text-muted">Kecha</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card shadow-sm border-0 mb-4">
-      <div class="card-body text-center">
-        <h5 class="card-title">Courses</h5>
-        <p class="card-text display-6">25</p>
-      </div>
+    
+    <!-- Quick Stats & Progress -->
+    <div class="col-lg-4 mb-4">
+        <!-- Course Progress -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-line me-2 text-success"></i>
+                    Kurslar Statistikasi
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small">Python Asoslari</span>
+                        <span class="small fw-bold">85%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-success" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small">Web Dasturlash</span>
+                        <span class="small fw-bold">72%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-primary" style="width: 72%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small">Data Science</span>
+                        <span class="small fw-bold">63%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-warning" style="width: 63%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small">Mobile Development</span>
+                        <span class="small fw-bold">45%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-info" style="width: 45%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bolt me-2 text-warning"></i>
+                    Tezkor Harakatlar
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary text-start">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        Yangi Kurs Qo'shish
+                    </button>
+                    <button class="btn btn-outline-success text-start">
+                        <i class="fas fa-user-plus me-2"></i>
+                        Talaba Qo'shish
+                    </button>
+                    <button class="btn btn-outline-warning text-start">
+                        <i class="fas fa-bullhorn me-2"></i>
+                        E'lon Yuborish
+                    </button>
+                    <button class="btn btn-outline-info text-start">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Hisobot Ko'rish
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card shadow-sm border-0 mb-4">
-      <div class="card-body text-center">
-        <h5 class="card-title">Teachers</h5>
-        <p class="card-text display-6">10</p>
-      </div>
+</div>
+
+<!-- Upcoming Deadlines -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-calendar-alt me-2 text-danger"></i>
+                    Yaqinlashayotgan Muddalar
+                </h5>
+                <a href="#" class="btn btn-sm btn-outline-primary">Barchasini Ko'rish</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Topshiriq Nomi</th>
+                                <th>Kurs</th>
+                                <th>Talabalar</th>
+                                <th>Muddati</th>
+                                <th>Holati</th>
+                                <th>Harakatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>React Final Project</td>
+                                <td>Web Dasturlash</td>
+                                <td>24/35</td>
+                                <td>
+                                    <span class="badge bg-danger">Ertaga</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-warning">Kutilyapti</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Python Data Analysis</td>
+                                <td>Data Science</td>
+                                <td>18/28</td>
+                                <td>
+                                    <span class="badge bg-warning">3 kun</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">Jarayonda</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mobile App Design</td>
+                                <td>Mobile Development</td>
+                                <td>12/20</td>
+                                <td>
+                                    <span class="badge bg-info">5 kun</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">Aktiv</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

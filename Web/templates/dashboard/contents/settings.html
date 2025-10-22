@@ -1,0 +1,276 @@
+{% extends '../base.html' %}
+
+{% block title %}Sozlamalar - Boshqaruv Paneli{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Sozlamalar</li>
+{% endblock %}
+
+{% block page_title %}Sozlamalar{% endblock %}
+
+{% block page_subtitle %}Platforma va hisobingiz sozlamalari{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- General Settings -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-cog me-2 text-primary"></i>
+                    Umumiy Sozlamalar
+                </h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Platforma Nomi</label>
+                            <input type="text" class="form-control" value="IT Academy">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Platforma Email</label>
+                            <input type="email" class="form-control" value="info@itacademy.uz">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telefon</label>
+                            <input type="tel" class="form-control" value="+998 90 123 45 67">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Manzil</label>
+                            <input type="text" class="form-control" value="Toshkent, O'zbekiston">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Til</label>
+                        <select class="form-select">
+                            <option selected>O'zbekcha</option>
+                            <option>English</option>
+                            <option>Русский</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Vaqt Zonasi</label>
+                        <select class="form-select">
+                            <option selected>Toshkent (UTC+5)</option>
+                            <option>Samarqand (UTC+5)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="maintenanceMode" checked>
+                        <label class="form-check-label" for="maintenanceMode">
+                            Texnik xizmat rejimi
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile Settings -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-user me-2 text-success"></i>
+                    Profil Sozlamalari
+                </h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" 
+                                 style="width: 80px; height: 80px; font-size: 1.5rem; font-weight: bold;">
+                                {{ user.username|first|upper }}
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary">Rasm Yuklash</button>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ism</label>
+                                    <input type="text" class="form-control" value="Admin">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Familiya</label>
+                                    <input type="text" class="form-control" value="User">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="admin@itacademy.uz">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Telefon</label>
+                                <input type="tel" class="form-control" value="+998 90 123 45 67">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Biografiya</label>
+                        <textarea class="form-control" rows="3" placeholder="O'zingiz haqingizda...">IT Academy platformasi administratori</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Profilni Yangilash</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-shield-alt me-2 text-warning"></i>
+                    Xavfsizlik Sozlamalari
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h6 class="fw-bold mb-3">Parolni O'zgartirish</h6>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Joriy Parol</label>
+                                <input type="password" class="form-control" placeholder="Joriy parol">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Yangi Parol</label>
+                                <input type="password" class="form-control" placeholder="Yangi parol">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Yangi Parolni Tasdiqlash</label>
+                            <input type="password" class="form-control" placeholder="Yangi parolni qayta kiriting">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Parolni Yangilash</button>
+                    </form>
+                </div>
+                
+                <hr>
+                
+                <div class="mb-3">
+                    <h6 class="fw-bold mb-3">Ikki Bosqichli Autentifikatsiya</h6>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                        <label class="form-check-label" for="twoFactorAuth">
+                            Google Authenticator orqali himoya
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bell me-2 text-info"></i>
+                    Bildirishnoma Sozlamalari
+                </h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                        <label class="form-check-label" for="emailNotifications">
+                            Email bildirishnomalar
+                        </label>
+                    </div>
+                    
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                        <label class="form-check-label" for="pushNotifications">
+                            Push bildirishnomalar
+                        </label>
+                    </div>
+                    
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="smsNotifications">
+                        <label class="form-check-label" for="smsNotifications">
+                            SMS bildirishnomalar
+                        </label>
+                    </div>
+                    
+                    <h6 class="fw-bold mt-4 mb-3">Bildirishnoma Turlari</h6>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="newStudents" checked>
+                        <label class="form-check-label" for="newStudents">
+                            Yangi talabalar
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="assignmentSubmissions" checked>
+                        <label class="form-check-label" for="assignmentSubmissions">
+                            Topshiriq topshirishlar
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="courseCompletions">
+                        <label class="form-check-label" for="courseCompletions">
+                            Kurs yakunlanishlar
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="systemUpdates" checked>
+                        <label class="form-check-label" for="systemUpdates">
+                            Tizim yangilanishlar
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary mt-3">Sozlamalarni Saqlash</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 10px;
+}
+
+.card-header {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.form-check-input:checked {
+    background-color: #0ea5e9;
+    border-color: #0ea5e9;
+}
+
+.btn-primary {
+    background-color: #0ea5e9;
+    border-color: #0ea5e9;
+}
+
+.btn-primary:hover {
+    background-color: #0284c7;
+    border-color: #0284c7;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form submission handling
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Sozlamalar muvaffaqiyatli saqlandi!');
+        });
+    });
+});
+</script>
+{% endblock %}

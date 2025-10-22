@@ -1,0 +1,269 @@
+{% extends '../base.html' %}
+
+{% block title %}Kurslar - Boshqaruv Paneli{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Kurslar</li>
+{% endblock %}
+
+{% block page_title %}Kurslar Boshqaruvi{% endblock %}
+
+{% block page_subtitle %}Barcha kurslarni ko'rish va boshqarish{% endblock %}
+
+{% block page_actions %}
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+    <i class="fas fa-plus me-2"></i>Yangi Kurs
+</button>
+{% endblock %}
+
+{% block content %}
+<!-- Filters and Search -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="d-flex gap-2 flex-wrap">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-filter me-2"></i>Filtrlash
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Barchasi</a></li>
+                    <li><a class="dropdown-item" href="#">Aktiv</a></li>
+                    <li><a class="dropdown-item" href="#">Yakunlangan</a></li>
+                    <li><a class="dropdown-item" href="#">Rejalashtirilgan</a></li>
+                </ul>
+            </div>
+            
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-sort me-2"></i>Saralash
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Yangi</a></li>
+                    <li><a class="dropdown-item" href="#">Eski</a></li>
+                    <li><a class="dropdown-item" href="#">Talabalar soni</a></li>
+                    <li><a class="dropdown-item" href="#">Reyting</a></li>
+                </ul>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-outline-secondary active">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="btn btn-outline-secondary">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Kurs qidirish...">
+            <button class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Courses Grid -->
+<div class="row">
+    {% for course in courses %}
+    <div class="col-xl-4 col-lg-6 mb-4">
+        <div class="card course-card shadow-sm border-0 h-100">
+            <div class="card-img-top position-relative">
+                <div class="course-image bg-gradient-to-r from-{{ course.color }}-400 to-{{ course.color }}-600 text-white d-flex align-items-end p-3" style="height: 120px;">
+                    <div>
+                        <h5 class="mb-1">{{ course.title }}</h5>
+                        <div class="d-flex align-items-center small">
+                            <i class="fas fa-user-tie me-1"></i>
+                            <span>{{ course.instructor }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="position-absolute top-0 end-0 m-3">
+                    <span class="badge bg-{{ course.status_color }}">{{ course.status }}</span>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <p class="text-muted small mb-3">{{ course.description|truncatewords:15 }}</p>
+                
+                <div class="row text-center mb-3">
+                    <div class="col-4">
+                        <div class="fw-bold text-primary">{{ course.students }}</div>
+                        <small class="text-muted">Talabalar</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="fw-bold text-success">{{ course.lessons }}</div>
+                        <small class="text-muted">Darslar</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="fw-bold text-warning">{{ course.duration }}</div>
+                        <small class="text-muted">Hafta</small>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Progress</span>
+                        <span>{{ course.progress }}%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-{{ course.color }}" style="width: {{ course.progress }}%"></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-warning small">
+                        <i class="fas fa-star"></i>
+                        {{ course.rating }} ({{ course.reviews }} sharh)
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>Ko'rish</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Tahrirlash</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-users me-2"></i>Talabalar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>O'chirish</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+<nav aria-label="Course pagination" class="mt-4">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Oldingi</a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Keyingi</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Add Course Modal -->
+<div class="modal fade" id="addCourseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yangi Kurs Qo'shish</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kurs Nomi</label>
+                            <input type="text" class="form-control" placeholder="Kurs nomini kiriting">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kategoriya</label>
+                            <select class="form-select">
+                                <option selected>Kategoriyani tanlang</option>
+                                <option>Dasturlash</option>
+                                <option>Dizayn</option>
+                                <option>Ma'lumotlar Tahlili</option>
+                                <option>Mobile Development</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Kurs Tavsifi</label>
+                        <textarea class="form-control" rows="3" placeholder="Kurs haqida qisqacha tavsif"></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Davomiylik (hafta)</label>
+                            <input type="number" class="form-control" placeholder="12">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Narx ($)</label>
+                            <input type="number" class="form-control" placeholder="99">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">O'qituvchi</label>
+                            <select class="form-select">
+                                <option selected>O'qituvchini tanlang</option>
+                                <option>Ali Valiyev</option>
+                                <option>Sevara Xolmirzayeva</option>
+                                <option>Javohir Tursunov</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Kurs Rangi</label>
+                        <div class="d-flex gap-2">
+                            <div class="color-option bg-primary rounded" style="width: 30px; height: 30px;"></div>
+                            <div class="color-option bg-success rounded" style="width: 30px; height: 30px;"></div>
+                            <div class="color-option bg-warning rounded" style="width: 30px; height: 30px;"></div>
+                            <div class="color-option bg-danger rounded" style="width: 30px; height: 30px;"></div>
+                            <div class="color-option bg-info rounded" style="width: 30px; height: 30px;"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <button type="button" class="btn btn-primary">Kurs Qo'shish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.course-image{
+    color: #000;
+}
+.course-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    content: "";
+    z-index: 1;
+}
+
+.color-option {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border-color: #000;
+}
+</style>
+
+<script>
+// Color selection for course
+document.querySelectorAll('.color-option').forEach(option => {
+    option.addEventListener('click', function() {
+        document.querySelectorAll('.color-option').forEach(opt => {
+            opt.classList.remove('active');
+        });
+        this.classList.add('active');
+    });
+});
+</script>
+{% endblock %}
