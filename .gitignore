@@ -17,3 +17,6 @@ Desktop/auth_token.txt
 Bot/venv/
 Bot/.env
 Bot/students.db
+
+# Migrations
+**/migrations/

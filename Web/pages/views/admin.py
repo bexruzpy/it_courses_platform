@@ -10,7 +10,7 @@ def dashboard_view(request):
         'teachers': 10,
         'active_users': 45,
     }
-    return render(request, 'dashboard/dashboard.html', {'courses': stats})
+    return render(request, 'admin/dashboard.html', {'courses': stats})
 
 
 # views.py da courses konteksti
@@ -103,7 +103,7 @@ def courses_view(request):
         }
     ]
     
-    return render(request, 'dashboard/contents/courses.html', {'courses': courses_data})
+    return render(request, 'admin/contents/courses.html', {'courses': courses_data})
 
 # views.py da teachers konteksti
 @login_required
@@ -215,7 +215,7 @@ def teachers_view(request):
         'total_courses': total_courses
     }
     
-    return render(request, 'dashboard/contents/teachers.html', context)
+    return render(request, 'admin/contents/teachers.html', context)
 
 # views.py da students konteksti
 @login_required
@@ -339,7 +339,7 @@ def students_view(request):
         'new_students': new_students
     }
     
-    return render(request, 'dashboard/contents/students.html', context)
+    return render(request, 'admin/contents/students.html', context)
 
 # views.py da analytics konteksti
 @login_required
@@ -415,7 +415,7 @@ def analytics_view(request):
             }
         ]
     }
-    return render(request, 'dashboard/contents/analytics.html', context)
+    return render(request, 'admin/contents/analytics.html', context)
 
 # views.py da assignments konteksti
 def assignments_view(request):
@@ -537,7 +537,7 @@ def assignments_view(request):
             }
         ]
     }
-    return render(request, 'dashboard/contents/assignments.html', context)
+    return render(request, 'admin/contents/assignments.html', context)
 
 # views.py da profile va notifications kontekslari
 @login_required
@@ -608,7 +608,7 @@ def profile_view(request):
             }
         ]
     }
-    return render(request, 'dashboard/contents/profile.html', context)
+    return render(request, 'admin/contents/profile.html', context)
 
 @login_required
 def notifications_view(request):
@@ -675,9 +675,9 @@ def notifications_view(request):
             }
         ]
     }
-    return render(request, 'dashboard/contents/notifications.html', context)
+    return render(request, 'admin/contents/notifications.html', context)
 
 # Settings
 @login_required
 def settings_view(request):
-    return render(request, 'dashboard/contents/settings.html')
+    return render(request, 'admin/contents/settings.html')

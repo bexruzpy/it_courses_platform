@@ -30,17 +30,17 @@ urlpatterns = [
     path('course_communications/<int:course_id>/<str:auth_token>/', course_communications, name='course_communications'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='custom_login')
 ]
-from .views import dashboard, others
+from .views import admin, others
 # Dashboard Urls
 urlpatterns += [
-    path("dashboard/", view=dashboard.dashboard_view, name="dashboard"),
-    path("dashboard/courses", view=dashboard.courses_view, name="courses"),
-    path("dashboard/teachers", view=dashboard.teachers_view, name="teachers"),
-    path("dashboard/students", view=dashboard.students_view, name="students"),
-    path("dashboard/settings", view=dashboard.settings_view, name="settings"),
-    path("dashboard/notifications", view=dashboard.notifications_view, name="notifications"),
-    path("dashboard/profile", view=dashboard.profile_view, name="profile"),
-    path("dashboard/assignments", view=dashboard.assignments_view, name="assignments"),
-    path("dashboard/analytics", view=dashboard.analytics_view, name="analytics"),
-    path('dashboard/logout/', others.custom_logout, name='custom_logout')
+    path("admin/", view=admin.dashboard_view, name="admin_dashboard"),
+    path("admin/courses", view=admin.courses_view, name="admin_courses"),
+    path("admin/teachers", view=admin.teachers_view, name="admin_teachers"),
+    path("admin/students", view=admin.students_view, name="admin_students"),
+    path("admin/settings", view=admin.settings_view, name="admin_settings"),
+    path("admin/notifications", view=admin.notifications_view, name="admin_notifications"),
+    path("admin/profile", view=admin.profile_view, name="admin_profile"),
+    path("admin/assignments", view=admin.assignments_view, name="admin_assignments"),
+    path("admin/analytics", view=admin.analytics_view, name="analytics"),
+    path('admin/logout/', others.custom_logout, name='admin_custom_logout')
 ]
