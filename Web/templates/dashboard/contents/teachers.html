@@ -1,0 +1,407 @@
+{% extends '../base.html' %}
+
+{% block title %}O'qituvchilar - Boshqaruv Paneli{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">O'qituvchilar</li>
+{% endblock %}
+
+{% block page_title %}O'qituvchilar Boshqaruvi{% endblock %}
+
+{% block page_subtitle %}Barcha o'qituvchilarni ko'rish va boshqarish{% endblock %}
+
+{% block page_actions %}
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+    <i class="fas fa-user-plus me-2"></i>Yangi O'qituvchi
+</button>
+{% endblock %}
+
+{% block content %}
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card primary h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">Jami O'qituvchilar</h6>
+                    <h3 class="fw-bold mb-0">{{ teachers|length }}</h3>
+                    <small class="text-success">
+                        <i class="fas fa-arrow-up me-1"></i>2 yangi
+                    </small>
+                </div>
+                <div class="bg-primary bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-chalkboard-teacher text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card success h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">Aktiv O'qituvchilar</h6>
+                    <h3 class="fw-bold mb-0">{{ active_teachers }}</h3>
+                    <small class="text-success">
+                        <i class="fas fa-circle me-1"></i>{{ active_percentage }}% aktiv
+                    </small>
+                </div>
+                <div class="bg-success bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-user-check text-success"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card warning h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">O'rtacha Reyting</h6>
+                    <h3 class="fw-bold mb-0">{{ average_rating }}</h3>
+                    <small class="text-warning">
+                        <i class="fas fa-star me-1"></i>Yuqori sifat
+                    </small>
+                </div>
+                <div class="bg-warning bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-star text-warning"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card info h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="text-muted mb-2">Jami Kurslar</h6>
+                    <h3 class="fw-bold mb-0">{{ total_courses }}</h3>
+                    <small class="text-info">
+                        <i class="fas fa-book me-1"></i>Faol kurslar
+                    </small>
+                </div>
+                <div class="bg-info bg-opacity-10 p-3 rounded">
+                    <i class="fas fa-book-open text-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters and Search -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="d-flex gap-2 flex-wrap">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-filter me-2"></i>Holati
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Barchasi</a></li>
+                    <li><a class="dropdown-item" href="#">Aktiv</a></li>
+                    <li><a class="dropdown-item" href="#">Dam olmoqda</a></li>
+                    <li><a class="dropdown-item" href="#">Faol emas</a></li>
+                </ul>
+            </div>
+            
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-sort me-2"></i>Saralash
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Ism bo'yicha</a></li>
+                    <li><a class="dropdown-item" href="#">Reyting</a></li>
+                    <li><a class="dropdown-item" href="#">Kurslar soni</a></li>
+                    <li><a class="dropdown-item" href="#">Ish tajribasi</a></li>
+                </ul>
+            </div>
+            
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-graduation-cap me-2"></i>Mutaxassislik
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Barchasi</a></li>
+                    <li><a class="dropdown-item" href="#">Dasturlash</a></li>
+                    <li><a class="dropdown-item" href="#">Dizayn</a></li>
+                    <li><a class="dropdown-item" href="#">Ma'lumotlar Tahlili</a></li>
+                    <li><a class="dropdown-item" href="#">Mobile Development</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="O'qituvchi qidirish...">
+            <button class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Teachers Grid -->
+<div class="row">
+    {% for teacher in teachers %}
+    <div class="col-xl-4 col-lg-6 mb-4">
+        <div class="card teacher-card shadow-sm border-0 h-100">
+            <div class="card-body text-center p-4">
+                <!-- Teacher Avatar -->
+                <div class="position-relative d-inline-block mb-3">
+                    <div class="teacher-avatar bg-gradient-to-r from-{{ teacher.color }}-400 to-{{ teacher.color }}-600 text-white rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+                         style="width: 80px; height: 80px; font-size: 1.5rem; font-weight: bold;">
+                        {{ teacher.initials }}
+                    </div>
+                    <div class="position-absolute bottom-0 end-0">
+                        <span class="badge bg-{{ teacher.status_color }} rounded-pill">
+                            <i class="fas fa-circle me-1 small"></i>{{ teacher.status }}
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Teacher Info -->
+                <h5 class="card-title mb-1">{{ teacher.name }}</h5>
+                <p class="text-muted small mb-2">{{ teacher.specialization }}</p>
+                
+                <!-- Rating -->
+                <div class="mb-3">
+                    <div class="text-warning mb-1">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= teacher.rating %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="text-muted ms-1 small">({{ teacher.rating }})</span>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="row text-center mb-3">
+                    <div class="col-4">
+                        <div class="fw-bold text-primary">{{ teacher.courses }}</div>
+                        <small class="text-muted">Kurslar</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="fw-bold text-success">{{ teacher.students }}+</div>
+                        <small class="text-muted">Talabalar</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="fw-bold text-warning">{{ teacher.experience }}</div>
+                        <small class="text-muted">Yil</small>
+                    </div>
+                </div>
+                
+                <!-- Skills -->
+                <div class="mb-3">
+                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                        {% for skill in teacher.skills %}
+                        <span class="badge bg-light text-dark border small">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Actions -->
+                <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-warning">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2"></i>Statistika</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-calendar me-2"></i>Dars jadvali</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>O'chirish</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Teachers Table View (Alternative) -->
+<div class="card shadow-sm border-0 mt-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-list me-2 text-primary"></i>
+            O'qituvchilar Ro'yxati
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>O'qituvchi</th>
+                        <th>Mutaxassislik</th>
+                        <th>Kurslar</th>
+                        <th>Talabalar</th>
+                        <th>Reyting</th>
+                        <th>Holati</th>
+                        <th>Harakatlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="teacher-avatar-sm bg-gradient-to-r from-{{ teacher.color }}-400 to-{{ teacher.color }}-600 text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                     style="width: 40px; height: 40px; font-weight: bold;">
+                                    {{ teacher.initials }}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ teacher.name }}</div>
+                                    <small class="text-muted">{{ teacher.email }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ teacher.specialization }}</td>
+                        <td>
+                            <span class="badge bg-primary">{{ teacher.courses }}</span>
+                        </td>
+                        <td>{{ teacher.students }}+</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="text-warning me-2">
+                                    <i class="fas fa-star"></i>
+                                    {{ teacher.rating }}
+                                </div>
+                                <small class="text-muted">({{ teacher.reviews }})</small>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-{{ teacher.status_color }}">
+                                <i class="fas fa-circle me-1 small"></i>{{ teacher.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>Ko'rish</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Tahrirlash</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>Xabar</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>O'chirish</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Teacher Modal -->
+<div class="modal fade" id="addTeacherModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yangi O'qituvchi Qo'shish</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ism</label>
+                            <input type="text" class="form-control" placeholder="Ismni kiriting">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Familiya</label>
+                            <input type="text" class="form-control" placeholder="Familiyani kiriting">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="email@example.com">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telefon</label>
+                            <input type="tel" class="form-control" placeholder="+998 90 123 45 67">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Mutaxassislik</label>
+                        <select class="form-select">
+                            <option selected>Mutaxassislikni tanlang</option>
+                            <option>Dasturlash</option>
+                            <option>Web Dizayn</option>
+                            <option>Data Science</option>
+                            <option>Mobile Development</option>
+                            <option>UI/UX Dizayn</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Ish Tajribasi (yil)</label>
+                        <input type="number" class="form-control" placeholder="5">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Qisqacha Biografiya</label>
+                        <textarea class="form-control" rows="3" placeholder="O'qituvchi haqida qisqacha ma'lumot"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Ko'nikmalar</label>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-light text-dark border">Python</span>
+                            <span class="badge bg-light text-dark border">JavaScript</span>
+                            <span class="badge bg-light text-dark border">React</span>
+                            <span class="badge bg-light text-dark border">Django</span>
+                            <button class="btn btn-sm btn-outline-primary">+ Qo'shish</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <button type="button" class="btn btn-primary">O'qituvchi Qo'shish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.teacher-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.teacher-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    content: "";
+    z-index: 1;
+}
+
+.teacher-avatar {
+    transition: transform 0.2s ease;
+}
+
+.teacher-card:hover .teacher-avatar {
+    transform: scale(1.1);
+}
+</style>
+{% endblock %}

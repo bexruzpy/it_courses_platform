@@ -1,0 +1,507 @@
+{% extends '../base.html' %}
+
+{% block title %}Analitika - Boshqaruv Paneli{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Analitika</li>
+{% endblock %}
+
+{% block page_title %}Analitika va Hisobotlar{% endblock %}
+
+{% block page_subtitle %}Platformangizning batafsil statistik tahlillari{% endblock %}
+
+{% block page_actions %}
+<div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="fas fa-calendar me-2"></i>Oxigi 30 kun
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Oxigi 7 kun</a></li>
+        <li><a class="dropdown-item active" href="#">Oxigi 30 kun</a></li>
+        <li><a class="dropdown-item" href="#">Oxigi 3 oy</a></li>
+        <li><a class="dropdown-item" href="#">Oxigi 1 yil</a></li>
+    </ul>
+</div>
+<button class="btn btn-primary">
+    <i class="fas fa-download me-2"></i>Hisobot yuklash
+</button>
+{% endblock %}
+
+{% block content %}
+<!-- Key Metrics -->
+<div class="row mb-4">
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-primary text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-user-graduate fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">1,248</h3>
+            <small>Jami Talabalar</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>12.5%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-success text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-book-open fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">28</h3>
+            <small>Faol Kurslar</small>
+            <div class="metric-trend text-warning mt-1">
+                <i class="fas fa-plus me-1"></i>3 yangi
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-warning text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-chalkboard-teacher fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">15</h3>
+            <small>O'qituvchilar</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>8.2%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-info text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-graduation-cap fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">324</h3>
+            <small>Yakunlaganlar</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>15.3%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-danger text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-tasks fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">1,856</h3>
+            <small>Topshiriqlar</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>22.7%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-purple text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-star fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">4.8</h3>
+            <small>O'rtacha Reyting</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>0.2
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row 1 -->
+<div class="row mb-4">
+    <!-- Student Growth Chart -->
+    <div class="col-xl-8 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-line me-2 text-primary"></i>
+                    Talabalar O'sishi
+                </h5>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fas fa-filter me-1"></i>Filtrlash
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Kunlik</a></li>
+                        <li><a class="dropdown-item active" href="#">Haftalik</a></li>
+                        <li><a class="dropdown-item" href="#">Oylik</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="studentGrowthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Course Distribution -->
+    <div class="col-xl-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-pie me-2 text-success"></i>
+                    Kurslar Bo'yicha Taqsimot
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="courseDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row 2 -->
+<div class="row mb-4">
+    <!-- Revenue Chart -->
+    <div class="col-xl-6 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-dollar-sign me-2 text-warning"></i>
+                    Daromad O'sishi
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Student Progress -->
+    <div class="col-xl-6 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-tachometer-alt me-2 text-info"></i>
+                    O'rtacha Kurs Progressi
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Analytics -->
+<div class="row">
+    <!-- Top Performing Courses -->
+    <div class="col-xl-6 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-trophy me-2 text-warning"></i>
+                    Eng Yaxshi Kurslar
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    {% for course in top_courses %}
+                    <div class="list-group-item px-0 py-3">
+                        <div class="d-flex align-items-center">
+                            <div class="course-rank bg-{{ course.color }} text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                 style="width: 40px; height: 40px; font-weight: bold;">
+                                {{ forloop.counter }}
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">{{ course.name }}</h6>
+                                <div class="d-flex align-items-center">
+                                    <div class="text-warning small me-2">
+                                        <i class="fas fa-star"></i> {{ course.rating }}
+                                    </div>
+                                    <small class="text-muted">{{ course.students }} talaba</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-{{ course.color }}">{{ course.completion }}%</div>
+                                <small class="text-muted">Yakunlanish</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Activity Timeline -->
+    <div class="col-xl-6 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-history me-2 text-primary"></i>
+                    So'nggi Faollik
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    {% for activity in recent_activities %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-{{ activity.color }}"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">{{ activity.title }}</h6>
+                                <small class="text-muted">{{ activity.time }}</small>
+                            </div>
+                            <p class="mb-0 text-muted small">{{ activity.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance Metrics -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-bar me-2 text-success"></i>
+                    Ishlash Ko'rsatkichlari
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                        <div class="performance-metric">
+                            <div class="metric-value text-primary fw-bold display-6">94.7%</div>
+                            <div class="metric-label text-muted">Kurs Yakunlanish Darajasi</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="performance-metric">
+                            <div class="metric-value text-success fw-bold display-6">87.3%</div>
+                            <div class="metric-label text-muted">Talaba Qoniqish Darajasi</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="performance-metric">
+                            <div class="metric-value text-warning fw-bold display-6">12.5%</div>
+                            <div class="metric-label text-muted">Oylik O'sish Darajasi</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="performance-metric">
+                            <div class="metric-value text-info fw-bold display-6">2.4x</div>
+                            <div class="metric-label text-muted">ROI (Investitsiya Daromadi)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+:root {
+    --primary: #0ea5e9;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #06b6d4;
+    --purple: #8b5cf6;
+}
+
+.metric-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.bg-purple {
+    background: linear-gradient(135deg, var(--purple) 0%, #a855f7 100%) !important;
+}
+
+.chart-container {
+    position: relative;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.25rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px var(--bs-primary);
+}
+
+.timeline-content {
+    background: white;
+    padding: 0.5rem 0;
+}
+
+.course-rank {
+    font-size: 0.9rem;
+}
+
+.performance-metric {
+    padding: 1rem;
+}
+
+.performance-metric .metric-value {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .performance-metric .metric-value {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Initialize charts when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Student Growth Chart
+    const growthCtx = document.getElementById('studentGrowthChart').getContext('2d');
+    new Chart(growthCtx, {
+        type: 'line',
+        data: {
+            labels: ['1-Hafta', '2-Hafta', '3-Hafta', '4-Hafta', '5-Hafta', '6-Hafta'],
+            datasets: [{
+                label: 'Yangi Talabalar',
+                data: [45, 52, 38, 65, 72, 58],
+                borderColor: '#0ea5e9',
+                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Jami Talabalar',
+                data: [245, 297, 335, 400, 472, 530],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+
+    // Course Distribution Chart
+    const distributionCtx = document.getElementById('courseDistributionChart').getContext('2d');
+    new Chart(distributionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Python', 'Web', 'Data Science', 'Mobile', 'Dizayn'],
+            datasets: [{
+                data: [35, 25, 15, 12, 13],
+                backgroundColor: [
+                    '#0ea5e9',
+                    '#10b981',
+                    '#f59e0b',
+                    '#8b5cf6',
+                    '#ef4444'
+                ],
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyn'],
+            datasets: [{
+                label: 'Daromad ($)',
+                data: [12500, 18900, 15300, 21700, 28400, 32500],
+                backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                borderColor: '#f59e0b',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Progress Chart
+    const progressCtx = document.getElementById('progressChart').getContext('2d');
+    new Chart(progressCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Python', 'Web', 'Data', 'Mobile', 'Dizayn'],
+            datasets: [{
+                label: 'Oʻrtacha Progress (%)',
+                data: [85, 72, 63, 45, 78],
+                backgroundColor: [
+                    'rgba(14, 165, 233, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(245, 158, 11, 0.8)',
+                    'rgba(139, 92, 246, 0.8)',
+                    'rgba(239, 68, 68, 0.8)'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,531 @@
+{% extends '../base.html' %}
+
+{% block title %}Topshiriqlar - Boshqaruv Paneli{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Topshiriqlar</li>
+{% endblock %}
+
+{% block page_title %}Topshiriqlar Boshqaruvi{% endblock %}
+
+{% block page_subtitle %}Barcha topshiriqlarni ko'rish va boshqarish{% endblock %}
+
+{% block page_actions %}
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssignmentModal">
+    <i class="fas fa-plus-circle me-2"></i>Yangi Topshiriq
+</button>
+<div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="fas fa-filter me-2"></i>Filtrlash
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Barchasi</a></li>
+        <li><a class="dropdown-item" href="#">Yangi</a></li>
+        <li><a class="dropdown-item" href="#">Jarayonda</a></li>
+        <li><a class="dropdown-item" href="#">Tekshirilmoqda</a></li>
+        <li><a class="dropdown-item" href="#">Yakunlangan</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-primary text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-tasks fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">156</h3>
+            <small>Jami Topshiriq</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>12.5%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-success text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-check-circle fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">89</h3>
+            <small>Yakunlangan</small>
+            <div class="metric-trend text-warning mt-1">
+                <i class="fas fa-chart-line me-1"></i>57%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-warning text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-clock fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">42</h3>
+            <small>Jarayonda</small>
+            <div class="metric-trend text-info mt-1">
+                <i class="fas fa-sync-alt me-1"></i>27%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-danger text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-exclamation-triangle fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">15</h3>
+            <small>Kechikkan</small>
+            <div class="metric-trend text-danger mt-1">
+                <i class="fas fa-arrow-down me-1"></i>10%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-info text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-eye fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">23</h3>
+            <small>Tekshirilmoqda</small>
+            <div class="metric-trend text-primary mt-1">
+                <i class="fas fa-hourglass-half me-1"></i>15%
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="metric-card bg-purple text-white rounded-3 p-3 text-center">
+            <div class="metric-icon mb-2">
+                <i class="fas fa-star fa-2x"></i>
+            </div>
+            <h3 class="fw-bold mb-1">4.7</h3>
+            <small>O'rtacha Baho</small>
+            <div class="metric-trend text-success mt-1">
+                <i class="fas fa-arrow-up me-1"></i>0.3
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions & Filters -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="d-flex gap-2 flex-wrap">
+            <div class="btn-group" role="group">
+                <input type="radio" class="btn-check" name="status-filter" id="all" checked>
+                <label class="btn btn-outline-primary" for="all">Barchasi</label>
+                
+                <input type="radio" class="btn-check" name="status-filter" id="active">
+                <label class="btn btn-outline-primary" for="active">Aktiv</label>
+                
+                <input type="radio" class="btn-check" name="status-filter" id="pending">
+                <label class="btn btn-outline-primary" for="pending">Kutilmoqda</label>
+                
+                <input type="radio" class="btn-check" name="status-filter" id="overdue">
+                <label class="btn btn-outline-primary" for="overdue">Kechikkan</label>
+            </div>
+            
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-sort me-2"></i>Saralash
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Muddati</a></li>
+                    <li><a class="dropdown-item" href="#">Yangi</a></li>
+                    <li><a class="dropdown-item" href="#">Muhimlik</a></li>
+                    <li><a class="dropdown-item" href="#">Status</a></li>
+                </ul>
+            </div>
+            
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-book me-2"></i>Kurs
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Barcha Kurslar</a></li>
+                    <li><a class="dropdown-item" href="#">Python Asoslari</a></li>
+                    <li><a class="dropdown-item" href="#">Web Dasturlash</a></li>
+                    <li><a class="dropdown-item" href="#">Data Science</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Topshiriq qidirish...">
+            <button class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Assignments Grid -->
+<div class="row">
+    {% for assignment in assignments %}
+    <div class="col-xl-4 col-lg-6 mb-4">
+        <div class="card assignment-card shadow-sm border-0 h-100">
+            <div class="card-header bg-transparent border-0 pb-0 position-relative">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge bg-{{ assignment.priority_color }}">
+                        <i class="fas fa-flag me-1"></i>{{ assignment.priority }}
+                    </span>
+                    <span class="badge bg-{{ assignment.status_color }}">
+                        {{ assignment.status }}
+                    </span>
+                </div>
+                <h5 class="card-title mb-2">{{ assignment.title }}</h5>
+                <p class="text-muted small mb-3">{{ assignment.course }}</p>
+            </div>
+            
+            <div class="card-body pt-0">
+                <!-- Progress -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Topshirish Progressi</span>
+                        <span>{{ assignment.submission_rate }}%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-{{ assignment.status_color }}" style="width: {{ assignment.submission_rate }}%"></div>
+                    </div>
+                </div>
+                
+                <!-- Details -->
+                <div class="assignment-details mb-3">
+                    <div class="row small text-muted">
+                        <div class="col-6">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{ assignment.due_date }}
+                        </div>
+                        <div class="col-6">
+                            <i class="fas fa-users me-1"></i>
+                            {{ assignment.submissions }}/{{ assignment.total_students }}
+                        </div>
+                    </div>
+                    <div class="row small text-muted mt-1">
+                        <div class="col-6">
+                            <i class="fas fa-user-tie me-1"></i>
+                            {{ assignment.instructor }}
+                        </div>
+                        <div class="col-6">
+                            <i class="fas fa-star me-1"></i>
+                            {{ assignment.avg_grade }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Students Progress -->
+                <div class="students-progress mb-3">
+                    <div class="d-flex justify-content-between small mb-2">
+                        <span>Talabalar Progressi:</span>
+                        <span>{{ assignment.completion_rate }}%</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        {% for i in "12345" %}
+                        <div class="student-avatar-sm bg-{{ assignment.color }} rounded-circle me-1" 
+                             style="width: 24px; height: 24px;"></div>
+                        {% endfor %}
+                        <small class="text-muted ms-2">+{{ assignment.more_students }}</small>
+                    </div>
+                </div>
+                
+                <!-- Actions -->
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-primary flex-fill">
+                        <i class="fas fa-eye me-1"></i>Ko'rish
+                    </button>
+                    <button class="btn btn-sm btn-outline-success flex-fill">
+                        <i class="fas fa-download me-1"></i>Yuklab olish
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Tahrirlash</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-copy me-2"></i>Nusxa olish</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-bar me-2"></i>Statistika</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>O'chirish</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Assignments Table View -->
+<div class="card shadow-sm border-0 mt-4">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-list me-2 text-primary"></i>
+            Barcha Topshiriqlar
+        </h5>
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-sync-alt me-1"></i>Yangilash
+            </button>
+            <button class="btn btn-sm btn-outline-success">
+                <i class="fas fa-download me-1"></i>Export
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Topshiriq Nomi</th>
+                        <th>Kurs</th>
+                        <th>O'qituvchi</th>
+                        <th>Muddati</th>
+                        <th>Status</th>
+                        <th>Topshirganlar</th>
+                        <th>O'rtacha Baho</th>
+                        <th>Harakatlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="assignment-icon bg-{{ assignment.color }} text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                     style="width: 40px; height: 40px;">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ assignment.title }}</div>
+                                    <small class="text-muted">{{ assignment.type }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ assignment.course }}</td>
+                        <td>{{ assignment.instructor }}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar me-2 text-muted"></i>
+                                <span class="{% if assignment.is_overdue %}text-danger{% endif %}">
+                                    {{ assignment.due_date }}
+                                </span>
+                                {% if assignment.is_overdue %}
+                                <i class="fas fa-exclamation-triangle text-danger ms-2"></i>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-{{ assignment.status_color }}">
+                                {{ assignment.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="progress flex-grow-1 me-2" style="height: 6px; width: 80px;">
+                                    <div class="progress-bar bg-{{ assignment.status_color }}" 
+                                         style="width: {{ assignment.submission_rate }}%"></div>
+                                </div>
+                                <small class="text-muted">{{ assignment.submissions }}/{{ assignment.total_students }}</small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <span class="fw-bold text-{{ assignment.color }}">{{ assignment.avg_grade }}</span>
+                                <div class="text-warning small">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>Ko'rish</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Tahrirlash</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i>Yuklab olish</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>O'chirish</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="card-footer bg-white">
+        <nav aria-label="Assignment pagination">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Oldingi</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Keyingi</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Add Assignment Modal -->
+<div class="modal fade" id="addAssignmentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yangi Topshiriq Yaratish</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Topshiriq Nomi</label>
+                            <input type="text" class="form-control" placeholder="Topshiriq nomini kiriting">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kurs</label>
+                            <select class="form-select">
+                                <option selected>Kursni tanlang</option>
+                                <option>Python Asoslari</option>
+                                <option>Web Dasturlash</option>
+                                <option>Data Science</option>
+                                <option>Mobile Development</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Topshiriq Turi</label>
+                            <select class="form-select">
+                                <option selected>Loyiha</option>
+                                <option>Quiz</option>
+                                <option>Laboratoriya</option>
+                                <option>Uy vazifasi</option>
+                                <option>Final loyiha</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Muhimlik Darajasi</label>
+                            <select class="form-select">
+                                <option selected>Oddiy</option>
+                                <option>O'rta</option>
+                                <option>Yuqori</option>
+                                <option>Juda Muhim</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Boshlanish Sanasi</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Yakunlanish Sanasi</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Topshiriq Tavsifi</label>
+                        <textarea class="form-control" rows="4" placeholder="Topshiriq haqida batafsil ma'lumot..."></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Fayl Yuklash (ixtiyoriy)</label>
+                        <input type="file" class="form-control">
+                        <small class="text-muted">PDF, DOC, ZIP formatlari qo'llab-quvvatlanadi</small>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="autoGrade">
+                        <label class="form-check-label" for="autoGrade">
+                            Avtomatik baholashni yoqish
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <button type="button" class="btn btn-primary">Topshiriq Yaratish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.metric-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.bg-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%) !important;
+}
+
+.assignment-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assignment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    content: "";
+    z-index: 1;
+}
+
+.assignment-icon {
+    transition: transform 0.2s ease;
+}
+
+.assignment-card:hover .assignment-icon {
+    transform: scale(1.1);
+}
+
+.student-avatar-sm {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.student-avatar-sm:hover {
+    opacity: 1;
+}
+
+.btn-check:checked + .btn-outline-primary {
+    background-color: #0ea5e9;
+    border-color: #0ea5e9;
+    color: white;
+}
+</style>
+
+<script>
+// Filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Radio button filter
+    const radioButtons = document.querySelectorAll('input[name="status-filter"]');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Filter logic would go here
+            console.log('Filter changed to:', this.id);
+        });
+    });
+});
+</script>
+{% endblock %}

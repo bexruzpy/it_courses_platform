@@ -293,25 +293,25 @@
         </a>
       </div>
       <div class="list-group my-3">
-        <a href="{% url 'admin_dashboard' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-home"></i> <span>Bosh Sahifa</span>
         </a>
-        <a href="{% url 'admin_courses' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'courses' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-book-open"></i> <span>Kurslar</span>
         </a>
-        <a href="{% url 'admin_teachers' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'teachers' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-chalkboard-teacher"></i> <span>O'qituvchilar</span>
         </a>
-        <a href="{% url 'admin_students' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'students' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-user-graduate"></i> <span>Talabalar</span>
         </a>
-        <a href="{% url 'admin_assignments' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'assignments' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-tasks"></i> <span>Topshiriqlar</span>
         </a>
-        <a href="{% url 'admin_analytics' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'analytics' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-chart-line"></i> <span>Analitika</span>
         </a>
-        <a href="{% url 'admin_settings' %}" class="list-group-item list-group-item-action fw-semibold">
+        <a href="{% url 'settings' %}" class="list-group-item list-group-item-action fw-semibold">
           <i class="fas fa-cog"></i> <span>Sozlamalar</span>
         </a>
       </div>
@@ -367,7 +367,7 @@
                 <li><a class="dropdown-item" href="#">Topshiriq yakunlanishi yaqinlashmoqda</a></li>
                 <li><a class="dropdown-item" href="#">Yangi xabar</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-primary" href="{% url 'admin_notifications' %}">Barchasini ko'rish</a></li>
+                <li><a class="dropdown-item text-primary" href="{% url 'notifications' %}">Barchasini ko'rish</a></li>
               </ul>
             </div>
             
@@ -380,10 +380,10 @@
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{% url 'admin_profile' %}"><i class="fas fa-user me-2"></i> Profil</a></li>
-                <li><a class="dropdown-item" href="{% url 'admin_settings' %}"><i class="fas fa-cog me-2"></i> Sozlamalar</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user me-2"></i> Profil</a></li>
+                <li><a class="dropdown-item" href="{% url 'settings' %}"><i class="fas fa-cog me-2"></i> Sozlamalar</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="{% url 'admin_custom_logout' %}"><i class="fas fa-sign-out-alt me-2"></i> Chiqish</a></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'custom_logout' %}"><i class="fas fa-sign-out-alt me-2"></i> Chiqish</a></li>
               </ul>
             </div>
           </div>
@@ -395,7 +395,7 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="mb-4">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'admin_dashboard' %}" class="text-decoration-none">Bosh Sahifa</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}" class="text-decoration-none">Bosh Sahifa</a></li>
             {% block breadcrumb %}
             <!-- Page-specific breadcrumb items -->
             {% endblock %}
